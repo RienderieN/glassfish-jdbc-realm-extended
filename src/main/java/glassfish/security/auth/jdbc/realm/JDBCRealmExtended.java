@@ -5,7 +5,6 @@ import com.sun.enterprise.security.auth.realm.BadRealmException;
 import com.sun.enterprise.security.auth.realm.InvalidOperationException;
 import com.sun.enterprise.security.auth.realm.NoSuchRealmException;
 import com.sun.enterprise.security.auth.realm.NoSuchUserException;
-import com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm;
 import com.sun.enterprise.util.i18n.StringManagerBase;
 import glassfish.security.auth.jdbc.login.JDBCLoginModuleExtended;
 import glassfish.security.auth.jdbc.util.dao.SecurityStorage;
@@ -25,52 +24,49 @@ import org.jvnet.hk2.annotations.Service;
 /**
  * Glassfish realm supporting JDBC authentication.
  * <p>
- * The realm JDBCRealmExtended is an alternative of the realm {@link JDBCRealm} and
- * includes several encryption type:
+ * This realm includes several encryption algorithms:
  * <ul>
- * <li> <code>None</code>: the user password won't be encrypted (a plaintext password).
- * <li> <code>SHA-256, SHA-1 or MD5</code>: the user password will be encrypted with {@link MessageDigest}.
- * <li> <code>Bcrypt</code>: the user password will be encrypt with {@link <a href="http://www.mindrot.org/projects/jBCrypt/">JBcrypt</a>}.
+ * <li> <code>None</code>: user password isn't encrypted (a plaintext password).
+ * <li> <code>Bcrypt</code>: user password encrypted with {@link <a href="http://www.mindrot.org/projects/jBCrypt/">jBCrypt</a>}.
+ * <li> <code>SHA-256</code>, <code>SHA-1</code> or <code>MD5</code>: user password encrypted with {@link MessageDigest}.
  * </ul>
  * <p>
  * The JDBC Realm needs the following properties in its configuration:
  * <p>
  * <ul>
- * <li>Mandatory properties:
+ * <li><b>Mandatory properties:</b>
  * <ul>
- * <li> <code>jaas-context</code>: JAAS context name used to access to the
- * LoginModule for authentication (ex: jdbcRealmExtended).
- * <li> <code>datasource-jndi</code>: the datasource jndi name.
- * <li> <code>db-user</code>: the datasource user name (if the datasource
- * user name was define into the datasource jndi configuration then this
- * parameter isn't mandatory).
- * <li> <code>db-password</code>: the datasource password (if the datasource
- * password was define into the datasource jndi configuration then this
- * parameter isn't mandatory).
- * <li> <code>user-table</code>: the table name containing user name and password.
- * <li> <code>user-name-column</code>: the column name corresponding to user name in user-table and group-table.
- * <li> <code>password-column</code>: the column name corresponding to password in user-table.
- * <li> <code>group-table</code>: the table name containing user name and group name.
- * <li> <code>group-name-column</code>: the column name corresponding to group in group-table.
- * <li><code>group-table-user-name-column</code>: the column name corresponding to user name in group-table
- * (this property isn't mandatory if the group-table property is equals to the user-table property).
+ * <li> <code>jaas-context</code>: JAAS context name used to access LoginModule for authentication (for example <i>jdbcRealmExtended</i>).
+ * <li> <code>datasource-jndi</code>: datasource jndi name.
+ * <li> <code>db-user</code>: datasource user name (if the datasource user name was define into the datasource jndi configuration then this
+ * property isn't mandatory).
+ * <li> <code>db-password</code>: datasource password (if the datasource password was define into the datasource jndi configuration then this
+ * property isn't mandatory).
+ * <li> <code>user-table</code>: table name containing user name and password.
+ * <li> <code>user-name-column</code>: column name corresponding to user name in user-table.
+ * <li> <code>password-column</code>: column name corresponding to password in user-table.
+ * <li> <code>group-table</code>: table name containing group name.
+ * <li> <code>group-name-column</code>: column name corresponding to group in group-table.
+ * <li><code>group-table-user-name-column</code>: column name corresponding to user name in group-table
+ * (this property isn't mandatory if the <code>group-table</code> property is equals to the <code>user-table</code> property).
  * </ul>
  * <p>
- * <li>Optional properties:
+ * <li><b>Optional properties:</b>
  * <ul>
- * <li> <code>digest-algorithm</code>: the algorithm used to encrypt user password(values: none, bcrypt, SHA-256, SHA-1 or MD5).
- * <li> <code>password-salt</code>: the plaintext salt to append to a user plaintext password.
- * <li> <code>bcrypt-log-rounds</code>: the {@link <a href="http://www.mindrot.org/projects/jBCrypt/">Bcrypt</a>} log rounds.
- * <li> <code>encoding</code>: the encoding type (values: hex or base64).
- * <li> <code>charset</code>: the {@link Charset} name.
+ * <li> <code>digest-algorithm</code>: algorithm used to encrypt user password(values: <code>None</code>, <code>Bcrypt</code>,
+ * <code>SHA-256</code>, <code>SHA-1</code> or <code>MD5</code>).
+ * <li> <code>password-salt</code>: plaintext password salt.
+ * <li> <code>bcrypt-log-rounds</code>: {@link <a href="http://www.mindrot.org/projects/jBCrypt/">jBCrypt</a>} log rounds.
+ * <li> <code>encoding</code>: encoding type (values: <code>hex</code> or <code>base64</code>).
+ * <li> <code>charset</code>: {@link Charset} name.
  * </ul>
  * </ul>
  * <p>
  * <b>WARNING:</b> <br/>
- * If the digest-algorithm is equals to 'none' value, user password won't be encrypted into the database. If
- * the digest-algorithm property isn't defined, the digest-algorithm property will correspond
- * to the default-digest-algorithm property defined into the glassfish security config (by default it's 'SHA-256').
- * If the default-digest-algorithm property isn't defined, the digest-algorithm property will correspond to SHA-256.
+ * If the <code>digest-algorithm</code> is equals to <code>None</code> value, user password isn't encrypted.<br/>
+ * If the <code>digest-algorithm</code> property isn't defined, the <code>digest-algorithm</code> property will correspond
+ * to the <code>default-digest-algorithm</code> property defined into the Glassfish security config (by default it's <code>SHA-256</code>).</br>
+ * If the <code>default-digest-algorithm</code> property isn't defined, the <code>digest-algorithm</code> property will correspond to <code>SHA-256</code>.
  * <p>
  * @author RienderieN
  * @version 1.0.0

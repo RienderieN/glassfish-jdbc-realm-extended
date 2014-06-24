@@ -20,22 +20,21 @@ import javax.sql.DataSource;
 /**
  * SecurityStorage class is a Database abstraction for a User and a Group Table used with Glassfish.
  * <p>
- * Mandatory propeties:
+ * <b>Mandatory properties:</b>
  * <ul>
- * <li> <code>datasource-jndi</code>: the datasource jndi name.
- * <li> <code>db-user</code>: the datasource user name (if the datasource
- * user name was define into the datasource jndi configuration then this
+ * <li> <code>jaas-context</code>: JAAS context name used to access LoginModule for authentication (for example <i>jdbcRealmExtended</i>).
+ * <li> <code>datasource-jndi</code>: datasource jndi name.
+ * <li> <code>db-user</code>: datasource user name (if the datasource user name was define into the datasource jndi configuration then this
  * property isn't mandatory).
- * <li> <code>db-password</code>: the datasource password (if the datasource
- * password was define into the datasource jndi configuration then this
+ * <li> <code>db-password</code>: datasource password (if the datasource password was define into the datasource jndi configuration then this
  * property isn't mandatory).
- * <li> <code>user-table</code>: the table name containing user name and password.
- * <li> <code>user-name-column</code>: the column name corresponding to user name in user-table and group-table.
- * <li> <code>password-column</code>: the column name corresponding to password in user-table.
- * <li> <code>group-table</code>: the table name containing user name and group name.
- * <li> <code>group-name-column</code>: the column name corresponding to group in group-table.
- * <li><code>group-table-user-name-column</code>: the column name corresponding to user name in group-table
- * (this property isn't mandatory if the group-table property is equals to the user-table property).
+ * <li> <code>user-table</code>: table name containing user name and password.
+ * <li> <code>user-name-column</code>: column name corresponding to user name in user-table.
+ * <li> <code>password-column</code>: column name corresponding to password in user-table.
+ * <li> <code>group-table</code>: table name containing group name.
+ * <li> <code>group-name-column</code>: column name corresponding to group in group-table.
+ * <li><code>group-table-user-name-column</code>: column name corresponding to user name in group-table
+ * (this property isn't mandatory if the <code>group-table</code> property is equals to the <code>user-table</code> property).
  * </ul>
  * <p>
  * @author RienderieN

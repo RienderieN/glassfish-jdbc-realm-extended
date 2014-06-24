@@ -13,20 +13,21 @@ import java.util.Properties;
  * ({@link BcryptPassword}, {@link MessageDigestPassword}, {@link UnencryptedPassword})
  * according to the specified properties.
  * <p>
- * Optional properties:
+ * <b>Optional properties:</b>
  * <ul>
- * <li> <code>digest-algorithm</code>: the algorithm used to encrypt user password(values: none, bcrypt, SHA-256, SHA-1 or MD5).
- * <li> <code>password-salt</code>: the plaintext salt to append to a user plaintext password.
- * <li> <code>bcrypt-log-rounds</code>: the {@link <a href="http://www.mindrot.org/projects/jBCrypt/">Bcrypt</a>} log rounds.
- * <li> <code>encoding</code>: the encoding type (values:hex or base64).
- * <li> <code>charset</code>: the {@link Charset} name.
+ * <li> <code>digest-algorithm</code>: algorithm used to encrypt user password(values: <code>None</code>, <code>Bcrypt</code>,
+ * <code>SHA-256</code>, <code>SHA-1</code> or <code>MD5</code>).
+ * <li> <code>password-salt</code>: plaintext password salt.
+ * <li> <code>bcrypt-log-rounds</code>: {@link <a href="http://www.mindrot.org/projects/jBCrypt/">jBCrypt</a>} log rounds.
+ * <li> <code>encoding</code>: encoding type (values: <code>hex</code> or <code>base64</code>).
+ * <li> <code>charset</code>: {@link Charset} name.
  * </ul>
  * <p>
  * <b>WARNING:</b> <br/>
- * If the digest-algorithm is equals to 'none' value, user password won't be encrypted into the database. If
- * the digest-algorithm property isn't defined, the digest-algorithm property will correspond
- * to the default-digest-algorithm property defined into the glassfish security config (by default it's 'SHA-256').
- * If the default-digest-algorithm property isn't defined, the digest-algorithm property will correspond to SHA-256.
+ * If the <code>digest-algorithm</code> is equals to <code>None</code> value, user password isn't encrypted.<br/>
+ * If the <code>digest-algorithm</code> property isn't defined, the <code>digest-algorithm</code> property will correspond
+ * to the <code>default-digest-algorithm</code> property defined into the Glassfish security config (by default it's <code>SHA-256</code>).</br>
+ * If the <code>default-digest-algorithm</code> property isn't defined, the <code>digest-algorithm</code> property will correspond to <code>SHA-256</code>.
  * <p>
  * @author RienderieN
  * @version 1.0.0
