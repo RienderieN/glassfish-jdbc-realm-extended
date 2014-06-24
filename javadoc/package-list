@@ -1,0 +1,7 @@
+glassfish.security.auth.jdbc.login
+glassfish.security.auth.jdbc.realm
+glassfish.security.auth.jdbc.util.dao
+glassfish.security.auth.jdbc.util.dao.exceptions
+glassfish.security.auth.jdbc.util.factory
+glassfish.security.auth.jdbc.util.factory.exceptions
+glassfish.security.auth.jdbc.util.factory.passwordtypes
